@@ -1,9 +1,6 @@
 <p>Which festivals are you attending?</p>
 <ul>
-  <li>A really cool one</li>
-  <li>A really cool one</li>
-  <li>A really cool one</li>
-  <li>A really cool one</li>
-  <li>A really cool one</li>
-  <li>A really cool one</li>
+  <li *ngFor="let festival of festivals">{{festival.name}} in {{festival.location}} 
+    <a [href]="festival.website">Website</a>
+  </li>
 </ul>
