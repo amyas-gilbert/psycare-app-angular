@@ -4,11 +4,13 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FestivalsComponent } from './festivals/festivals.component';
+import { FestivalComponent } from './festivals/festival/festival.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FestivalsComponent
+    FestivalsComponent,
+    FestivalComponent
   ],
   imports: [
     BrowserModule,
