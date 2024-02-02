@@ -1,3 +1,5 @@
+<app-header (loadedFeature)="onNavigate($event)"></app-header>
 <h1>Welcome to PsycAir</h1>
-<h2>Have a nice trip :)</h2>
-<app-festivals></app-festivals>
+<h2 *ngIf="loadedFeature === 'home'">Have a nice trip :)</h2>
+<app-festivals *ngIf="loadedFeature === 'festivals'"></app-festivals>
+<app-resources *ngIf="loadedFeature === 'resources'"></app-resources>

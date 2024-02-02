@@ -1,17 +1,21 @@
 import { Component } from '@angular/core';
 
+import { FestivalsService } from './festivals.service';
+import { Festival } from './festival/festival.model';
+
 @Component({
   selector: 'app-festivals',
   templateUrl: './festivals.component.html',
-  styleUrl: './festivals.component.scss'
+  styleUrl: './festivals.component.scss',
+  providers: [FestivalsService]
 })
 
 export class FestivalsComponent {
-  festivals = [
-    {name: 'Noisily', location: 'Leicestershire', website: 'https://noisilyfestival.com/'},
-    {name: 'SGP', location: 'Huntingdon', website: 'https://www.secretgardenparty.com/'},
-    {name: 'Wonkfest', location: 'Prangton', website: '#'},
-    {name: 'Scrapness', location: 'Fuckedshire', website: '#'},
-  ]
+  festivals: Festival[];
 
+  constructor(private festivalsService: FestivalsService) {}
+
+  ngOnInit() {
+    this.festivals = this.festivalsService.getFestivals();
+  }
 }

@@ -5,12 +5,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FestivalsComponent } from './festivals/festivals.component';
 import { FestivalComponent } from './festivals/festival/festival.component';
+import { HeaderComponent } from './header/header.component';
+import { ResourcesComponent } from './resources/resources.component';
+import { FestivalsService } from './festivals/festivals.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     FestivalsComponent,
-    FestivalComponent
+    FestivalComponent,
+    HeaderComponent,
+    ResourcesComponent,
   ],
   imports: [
     BrowserModule,
