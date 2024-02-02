@@ -8,6 +8,14 @@ import { FestivalComponent } from './festivals/festival/festival.component';
 import { HeaderComponent } from './header/header.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { FestivalsService } from './festivals/festivals.service';
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+
+const appRoutes: Routes = [
+  { path: '', component: HomeComponent},
+  { path: 'festivals', component: FestivalsComponent},
+  { path: 'resources', component: ResourcesComponent}
+]
 
 @NgModule({
   declarations: [
@@ -16,10 +24,12 @@ import { FestivalsService } from './festivals/festivals.service';
     FestivalComponent,
     HeaderComponent,
     ResourcesComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [
     provideClientHydration()
