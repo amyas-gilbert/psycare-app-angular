@@ -10,6 +10,10 @@ import { ResourcesComponent } from './resources/resources.component';
 import { FestivalsService } from './festivals/festivals.service';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { GuestsComponent } from './guests/guests.component';
+import { FormComponent } from './form/form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ReversePipe } from './reverse.pipe';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
@@ -25,11 +29,15 @@ const appRoutes: Routes = [
     HeaderComponent,
     ResourcesComponent,
     HomeComponent,
+    GuestsComponent,
+    FormComponent,
+    ReversePipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    ReactiveFormsModule
   ],
   providers: [
     provideClientHydration()
