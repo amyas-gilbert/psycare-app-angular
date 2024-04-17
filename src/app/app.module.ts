@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'festivals', component: FestivalsComponent},
+  { path: 'festivals/:name', component: FestivalComponent},
   { path: 'resources', component: ResourcesComponent}
 ]
 

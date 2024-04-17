@@ -1,1 +1,29 @@
-<p>festival works!</p>
+<h1>{{ festival.name }}</h1>
+
+<a>Info</a>
+<p>Other Stuff</p>
+<p>Guest Form</p>
+
+<!-- bla bla how to use this page -->
+
+
+<app-form></app-form>
+<!-- not a separate form but in a dropdown when you click the row displaying guest name and checkin time -->
+
+<hr>
+
+<a (click)="logGuests()">Log Guests</a>
+<br>
+<a (click)="showGuests()" *ngIf="!guestsShown">Show Guests</a>
+<a (click)="hideGuests()" *ngIf="guestsShown">Hide Guests</a>
+<br>
+<div *ngIf="guestsShown">
+  <ul>
+    <li *ngFor="let guest of guests">
+      <p>Name: {{ guest.name }}</p>
+      <p>Checkin time: {{ guest.time }}</p>
+      <p>Description: {{ guest.description }}</p>
+      <p>Notes: {{ guest.notes }}</p>
+    </li>
+  </ul>
+</div>

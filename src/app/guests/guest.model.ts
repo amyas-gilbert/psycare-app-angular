@@ -1,3 +1,3 @@
 export class Guest {
-  constructor(name: string, time: string, description: string, notes: string) {}
+  constructor(public name: string, public time: string, public description: string, public notes: string) {}
 }

@@ -1,11 +1,12 @@
-<h2>Which festivals are you attending?</h2>
+<h2>Festivals</h2>
 
 <ul>
   <li *ngFor="let festival of festivals">{{festival.name | reverse | uppercase}} in {{festival.location}} 
     <a [href]="festival.website">Website</a>
     <br>
-    <input type="checkbox">
+    <!-- link to festival component with query params linking it to that festival -->
+    <a [routerLink]="festival.name">Go to {{festival.name}}'s page</a>
   </li>
 </ul>
 
-<app-form></app-form>
+<!-- <app-festival></app-festival> -->

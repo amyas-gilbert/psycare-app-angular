@@ -5,14 +5,14 @@ import { Injectable } from "@angular/core";
 export class FestivalsService {
   constructor (private http: HttpClient) {}
 
-    festivals = [
-      {name: 'Noisily', location: 'Leicestershire', website: 'https://noisilyfestival.com/'},
-      {name: 'SGP', location: 'Huntingdon', website: 'https://www.secretgardenparty.com/'},
-      {name: 'Wonkfest', location: 'Prangton', website: '#'},
-      {name: 'Scrapness', location: 'Fuckedshire', website: '#'},
-    ]
+  festivals = [
+    {name: 'Noisily', location: 'Leicestershire', website: 'https://noisilyfestival.com/'},
+    {name: 'SGP', location: 'Huntingdon', website: 'https://www.secretgardenparty.com/'},
+    {name: 'Wonkfest', location: 'Prangton', website: '#'},
+    {name: 'Scrapness', location: 'Boshford', website: '#'},
+  ]
 
-    getFestivals() {
-      return this.festivals.slice();
-    }
+  getFestivals() {
+    return this.festivals.slice();
+  }
 }

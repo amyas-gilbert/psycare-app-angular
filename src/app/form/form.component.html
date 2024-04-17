@@ -1,4 +1,4 @@
-<form [formGroup]="guestForm" (ngSubmit)="onSubmit(form)" #form="ngForm">
+<form [formGroup]="guestForm" (ngSubmit)="onSubmit()">
   <div>
     <label for="name">guest name</label>
     <input type="text" name="name" id="name" formControlName="name">
@@ -15,4 +15,5 @@
     <label for="notes">notes</label>
     <input type="text" name="notes" id="notes" formControlName="notes">
   </div>
+  <button type="submit">Check 'em in!</button>
 </form>
