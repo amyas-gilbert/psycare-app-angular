@@ -17,4 +17,8 @@ export class FormComponent implements OnInit {
       'notes': new FormControl(null)
     });
   }
+
+  onSubmit(form) {
+
+  }
 }

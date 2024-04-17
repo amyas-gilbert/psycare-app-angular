@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 
 import { FestivalsService } from './festivals.service';
 import { Festival } from './festival/festival.model';
@@ -13,7 +13,7 @@ import { Festival } from './festival/festival.model';
 export class FestivalsComponent {
   festivals: Festival[];
 
-  constructor(private festivalsService: FestivalsService) {}
+  constructor(@Inject(String) private festivalsService: FestivalsService) {}
 
   ngOnInit() {
     this.festivals = this.festivalsService.getFestivals();

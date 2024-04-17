@@ -1,4 +1,4 @@
-<form [formGroup]="guestForm">
+<form [formGroup]="guestForm" (ngSubmit)="onSubmit(form)" #form="ngForm">
   <div>
     <label for="name">guest name</label>
     <input type="text" name="name" id="name" formControlName="name">
