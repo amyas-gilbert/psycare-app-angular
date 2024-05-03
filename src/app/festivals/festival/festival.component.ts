@@ -11,12 +11,12 @@ import { Guest } from '../../guests/guest.model';
 })
 
 export class FestivalComponent {
-  festival: {name: string, location: string, website: string};
+  festival: { name: string, location: string, website: string };
   guestsShown: boolean = false;
-  // guestService = new GuestsService;
   guests: Guest[];
 
-  constructor(private route: ActivatedRoute, private guestsService: GuestsService) {}
+  constructor(private route: ActivatedRoute, private guestsService: GuestsService) {
+  }
 
   ngOnInit() {
     this.festival = {
@@ -24,17 +24,33 @@ export class FestivalComponent {
       location: this.route.snapshot.params['location'],
       website: this.route.snapshot.params['website']
     }
-    this.guests = this.guestsService.guests
+    this.guestsService.getGuests()
+      .subscribe(guests => {
+        this.guests = guests;
+      });
   }
 
   logGuests() {
-    console.log(this.guestsService.guests);
+    this.guestsService.getGuests()
+      .subscribe(guests => {
+        console.log(guests);
+      });
   }
 
-  showGuests(): boolean {
-    return this.guestsShown = true;
+  clearGuests() {
+    this.guestsService.deleteGuests();
   }
-  hideGuests(): boolean {
-    return this.guestsShown = false;
+
+  showGuests() {
+    this.guestsShown = true;
+    this.guestsService.getGuests()
+      .subscribe(guests => {
+        this.guests = guests;
+      });
   }
+
+  hideGuests() {
+    this.guestsShown = false;
+  }
+
 }

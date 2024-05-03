@@ -13,15 +13,17 @@
 <hr>
 
 <a (click)="logGuests()">Log Guests</a>
-<br>
+
 <a (click)="showGuests()" *ngIf="!guestsShown">Show Guests</a>
 <a (click)="hideGuests()" *ngIf="guestsShown">Hide Guests</a>
+
+<a (click)="clearGuests()">Clear Guests</a>
 <br>
 <div *ngIf="guestsShown">
   <ul>
     <li *ngFor="let guest of guests">
       <p>Name: {{ guest.name }}</p>
-      <p>Checkin time: {{ guest.time }}</p>
+      <p>Checkin time: {{ guest.checkInTime }}</p>
       <p>Description: {{ guest.description }}</p>
       <p>Notes: {{ guest.notes }}</p>
     </li>

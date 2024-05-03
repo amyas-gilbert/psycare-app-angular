@@ -1,19 +1,32 @@
-<form [formGroup]="guestForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="name">guest name</label>
+<form [formGroup]="guestForm" (ngSubmit)="onCheckIn(guestForm.value)">
+  <div class="form-field">
+    <label for="name">guest name:</label>
     <input type="text" name="name" id="name" formControlName="name">
   </div>
-  <div>
-    <label for="check-in-time">check-in time</label>
-    <input type="datetime" name="check-in-time" id="check-in-time" formControlName="time">
+  <div class="form-field">
+    <label for="check-in-time">check-in time:</label>
+    <input type="text" name="check-in-time" id="check-in-time" formControlName="time">
   </div>
-  <div>
-    <label for="description">description</label>
+  <div class="form-field">
+    <label for="description">description:</label>
     <input type="text" name="description" id="description" formControlName="description">
   </div>
-  <div>
-    <label for="notes">notes</label>
+  <div class="form-field">
+    <label for="notes">notes:</label>
     <input type="text" name="notes" id="notes" formControlName="notes">
   </div>
   <button type="submit">Check 'em in!</button>
 </form>
+
+
+
+<!--<div>-->
+<!--  <ul>-->
+<!--    <li *ngFor="let guest of loadedGuests">-->
+<!--      <p>Name: {{ guest.name }}</p>-->
+<!--      <p>Checkin time: {{ guest.checkInTime }}</p>-->
+<!--      <p>Description: {{ guest.description }}</p>-->
+<!--      <p>Notes: {{ guest.notes }}</p>-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</div>-->
