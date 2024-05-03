@@ -1,46 +1,45 @@
+<body>
+
 <h1>{{ festival.name }}</h1>
 
-<a>Info</a>
-<p>Other Stuff</p>
-<p>Guest Form</p>
-
-<!-- bla bla how to use this page -->
-
+<div class="festivalLinks">
+  <a>Info</a>
+  <a>Other Stuff</a>
+  <a>Guest Form</a>
+</div>
 
 <app-form></app-form>
 <!-- not a separate form but in a dropdown when you click the row displaying guest name and checkin time -->
 
-<hr>
-
-<a (click)="logGuests()">Log Guests</a>
-
-<a (click)="showGuests()" *ngIf="!guestsShown">Show Guests</a>
-<a (click)="hideGuests()" *ngIf="guestsShown">Hide Guests</a>
-
-<a (click)="clearGuests()">Clear Guests</a>
-
-<br>
-
-<p *ngIf="isFetching && !error">Loading guests...</p>
-<div *ngIf="error">
-  <h2>We got a bug!</h2>
-  <p>{{ error.status + ' - ' + error.error['error'] }}</p>
-  <button (click)="onHandleError()">Whatever</button>
-</div>
-<div *ngIf="!isFetching">
-  <p *ngIf="guestsEmpty">There are no guests checked in</p>
-  <p *ngIf="!guestsEmpty">There is at least one guest checked in</p>
+<div class="guestsButtons">
+  <a (click)="logGuests()">Log Guests</a>
+  <a (click)="showGuests()" *ngIf="!guestsShown">Show Guests</a>
+  <a (click)="hideGuests()" *ngIf="guestsShown">Hide Guests</a>
+  <a (click)="clearGuests()">Clear Guests</a>
 </div>
 
-<div *ngIf="guestsShown">
-  <ul>
-    <li *ngFor="let guest of guests">
-      <p>Name: {{ guest.name }}</p>
-      <p>Checkin time: {{ guest.checkInTime }}</p>
-      <p>Description: {{ guest.description }}</p>
-      <p>Notes: {{ guest.notes }}</p>
-    </li>
-  </ul>
+<div class="guestsDisplay">
+  <p *ngIf="isFetching && !error">Loading guests...</p>
+  <div *ngIf="error">
+    <h2>We got a bug!</h2>
+    <p>{{ error.status + ' - ' + error.error['error'] }}</p>
+    <button (click)="onHandleError()">Whatever</button>
+  </div>
+  <div *ngIf="!isFetching">
+    <p *ngIf="guestsEmpty">There are no guests checked in</p>
+    <p *ngIf="!guestsEmpty">There is at least one guest checked in</p>
+  </div>
+
+  <div *ngIf="guestsShown">
+    <ul>
+      <li *ngFor="let guest of guests">
+        <p>Name: {{ guest.name }}</p>
+        <p>Checkin time: {{ guest.checkInTime }}</p>
+        <p>Description: {{ guest.description }}</p>
+        <p>Notes: {{ guest.notes }}</p>
+      </li>
+    </ul>
+  </div>
 </div>
 
-
+</body>
