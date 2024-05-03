@@ -30,7 +30,6 @@ export class FormComponent implements OnInit {
 
   onCheckIn(guestData: Guest) {
     this.guestService.addGuest(guestData);
-    this.guestService.noGuests = false;
     // this.guestAdded.emit();
   }
 

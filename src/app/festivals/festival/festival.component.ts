@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GuestsService } from '../../guests/guests.service';
 import { Guest } from '../../guests/guest.model';
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-festival',
@@ -10,11 +11,14 @@ import { Guest } from '../../guests/guest.model';
   providers: [GuestsService]
 })
 
-export class FestivalComponent {
+export class FestivalComponent implements OnInit, OnDestroy {
   festival: { name: string, location: string, website: string };
-  guestsShown: boolean = false;
+  guestsShown = false;
   guestsEmpty: boolean;
   guests: Guest[];
+  isFetching = false;
+  error = null;
+  private errorSubscription: Subscription;
 
   constructor(private route: ActivatedRoute, private guestsService: GuestsService) {
   }
@@ -26,22 +30,38 @@ export class FestivalComponent {
       website: this.route.snapshot.params['website']
     }
 
+    // subject error handling
+    this.errorSubscription = this.guestsService.error.subscribe(errorMessage => {
+      this.error = errorMessage;
+    })
+
+    this.isFetching = true;
+
     this.guestsService.getGuests()
       .subscribe(guests => {
+        this.isFetching = false;
         this.guests = guests;
         this.areThereAnyGuests();
-      });
+      }, error => {
+        this.isFetching = false;
+        this.error = error;
+        console.log(error);
+      }
+    );
   }
 
   areThereAnyGuests() {
-    if (this.guests) {
-      if (this.guests.length < 1) {
-        this.guestsEmpty = true;
-        this.guestsShown = false;
-      } else {
-        this.guestsEmpty = false;
-      }
-    }
+    this.guestsService.getGuests()
+      .subscribe(guests => {
+        this.guests = guests;
+          if (this.guests.length === 0) {
+            this.isFetching = false;
+            this.guestsEmpty = true;
+            this.guestsShown = false;
+          } else {
+            this.guestsEmpty = false;
+          }
+      });
   }
 
   logGuests() {
@@ -62,11 +82,15 @@ export class FestivalComponent {
   showGuests() {
     this.guestsService.getGuests()
       .subscribe(guests => {
+        this.isFetching = false;
         this.guests = guests;
         if (this.guests.length > 0) {
           this.guestsShown = true;
         }
         this.areThereAnyGuests();
+      }, error => {
+        this.isFetching = false;
+        this.error = error.message;
       });
   }
 
@@ -74,4 +98,12 @@ export class FestivalComponent {
     this.guestsShown = false;
   }
 
+  onHandleError() {
+    this.isFetching = false;
+    this.error = null;
+  }
+
+  ngOnDestroy() {
+    this.errorSubscription.unsubscribe();
+  }
 }
