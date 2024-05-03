@@ -13,6 +13,7 @@ import { Guest } from '../../guests/guest.model';
 export class FestivalComponent {
   festival: { name: string, location: string, website: string };
   guestsShown: boolean = false;
+  guestsEmpty: boolean;
   guests: Guest[];
 
   constructor(private route: ActivatedRoute, private guestsService: GuestsService) {
@@ -24,10 +25,23 @@ export class FestivalComponent {
       location: this.route.snapshot.params['location'],
       website: this.route.snapshot.params['website']
     }
+
     this.guestsService.getGuests()
       .subscribe(guests => {
         this.guests = guests;
+        this.areThereAnyGuests();
       });
+  }
+
+  areThereAnyGuests() {
+    if (this.guests) {
+      if (this.guests.length < 1) {
+        this.guestsEmpty = true;
+        this.guestsShown = false;
+      } else {
+        this.guestsEmpty = false;
+      }
+    }
   }
 
   logGuests() {
@@ -38,14 +52,21 @@ export class FestivalComponent {
   }
 
   clearGuests() {
-    this.guestsService.deleteGuests();
+    this.guestsService.deleteGuests()
+      .subscribe(() => {
+        this.guests = [];
+        this.areThereAnyGuests();
+      });
   }
 
   showGuests() {
-    this.guestsShown = true;
     this.guestsService.getGuests()
       .subscribe(guests => {
         this.guests = guests;
+        if (this.guests.length > 0) {
+          this.guestsShown = true;
+        }
+        this.areThereAnyGuests();
       });
   }
 

@@ -18,7 +18,14 @@
 <a (click)="hideGuests()" *ngIf="guestsShown">Hide Guests</a>
 
 <a (click)="clearGuests()">Clear Guests</a>
+
 <br>
+
+<div >
+  <p *ngIf="guestsEmpty">There are no guests checked in</p>
+  <p *ngIf="!guestsEmpty">There is at least one guest checked in</p>
+</div>
+
 <div *ngIf="guestsShown">
   <ul>
     <li *ngFor="let guest of guests">
@@ -29,3 +36,5 @@
     </li>
   </ul>
 </div>
+
+

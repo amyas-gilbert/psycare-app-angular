@@ -5,6 +5,7 @@ import { HttpClient } from "@angular/common/http";
 
 @Injectable()
 export class GuestsService {
+  noGuests: boolean;
 
   constructor (private http: HttpClient) {}
 
@@ -35,7 +36,7 @@ export class GuestsService {
   }
 
   deleteGuests() {
-    this.http.delete('https://psycare-ng-db-default-rtdb.europe-west1.firebasedatabase.app/guests.json').subscribe();
+    return this.http.delete('https://psycare-ng-db-default-rtdb.europe-west1.firebasedatabase.app/guests.json');
   }
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { GuestsService } from '../guests/guests.service';
 import { Guest } from '../guests/guest.model';
@@ -11,8 +11,8 @@ import { Guest } from '../guests/guest.model';
   providers: [GuestsService]
 })
 export class FormComponent implements OnInit {
+  // @Output() guestAdded = new EventEmitter;
   guestForm: FormGroup;
-  newGuest: Guest;
 
   constructor(private guestService: GuestsService) {
   }
@@ -30,6 +30,8 @@ export class FormComponent implements OnInit {
 
   onCheckIn(guestData: Guest) {
     this.guestService.addGuest(guestData);
+    this.guestService.noGuests = false;
+    // this.guestAdded.emit();
   }
 
 }
