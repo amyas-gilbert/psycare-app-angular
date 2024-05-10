@@ -14,7 +14,8 @@ import { GuestsComponent } from './guests/guests.component';
 import { FormComponent } from './form/form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ReversePipe } from './reverse.pipe';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptorService } from "./auth-interceptor.service";
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
@@ -43,7 +44,8 @@ const appRoutes: Routes = [
     HttpClientModule
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}]
   ],
   bootstrap: [AppComponent]
 })
