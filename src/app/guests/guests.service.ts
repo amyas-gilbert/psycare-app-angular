@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Guest } from "./guest.model";
-import { map, catchError } from "rxjs/operators";
-import { HttpClient } from "@angular/common/http";
+import { catchError, map, tap } from "rxjs/operators";
+import { HttpClient, HttpEventType, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Subject, throwError } from "rxjs";
 
 @Injectable()
@@ -14,11 +14,16 @@ export class GuestsService {
   }
 
   addGuest(guestData: Guest) {
-    // console.log(guestData)
 
+    // observing different types of responses
     this.http.post<{
       name: string
-    }>('https://psycare-ng-db-default-rtdb.europe-west1.firebasedatabase.app/guests.json', guestData)
+    }>('https://psycare-ng-db-default-rtdb.europe-west1.firebasedatabase.app/guests.json',
+      guestData,
+      {
+        observe: 'response'
+      }
+      )
       .subscribe(responseData => {
           console.log(responseData);
         }, error => {
@@ -28,10 +33,21 @@ export class GuestsService {
   }
 
   getGuests() {
+
+    // headers and params
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('print', 'pretty');
+    searchParams = searchParams.append('custom', 'key');
+
     // this return allows us to access the response in components
     return this.http.get<{
       [key: string]: Guest
-    }>('https://psycare-ng-db-default-rtdb.europe-west1.firebasedatabase.app/guests.json')
+    }>('https://psycare-ng-db-default-rtdb.europe-west1.firebasedatabase.app/guests.json',
+      {
+        headers: new HttpHeaders({'THIS-IS-MY-HEADER': 'THERE ARE MANY LIKE IT BUT THIS ONE IS MINE'}),
+        params: searchParams
+      }
+      )
       // optional but recommended type casting for cleaner code, fewer errors, and better autocompletion
       .pipe(
         map((responseData) => {
@@ -52,7 +68,21 @@ export class GuestsService {
   }
 
   deleteGuests() {
-    return this.http.delete('https://psycare-ng-db-default-rtdb.europe-west1.firebasedatabase.app/guests.json');
+    return this.http.delete('https://psycare-ng-db-default-rtdb.europe-west1.firebasedatabase.app/guests.json',
+      {
+        observe: 'events',
+        responseType: 'text'
+      }
+      ).pipe(tap(event => {
+        console.log(event);
+        // tap allows you to get at the response without altering the response
+      if (event.type === HttpEventType.Sent) {
+        // whatever, tell the user it was sent or something
+      }
+      if (event.type === HttpEventType.Response) {
+        console.log(event.body);
+      }
+    }));
   }
 
 
