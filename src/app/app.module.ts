@@ -12,16 +12,20 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { GuestsComponent } from './guests/guests.component';
 import { FormComponent } from './form/form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReversePipe } from './reverse.pipe';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptorService } from "./auth-interceptor.service";
+// import { AuthInterceptorService } from "./auth-interceptor.service";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthComponent } from "./auth/auth.component";
+import { LoadingSpinnerComponent } from "./shared/loading-spinner/loading-spinner";
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'festivals', component: FestivalsComponent},
   { path: 'festivals/:name', component: FestivalComponent},
-  { path: 'resources', component: ResourcesComponent}
+  { path: 'resources', component: ResourcesComponent},
+  { path: 'auth', component: AuthComponent }
 ]
 
 @NgModule({
@@ -35,17 +39,21 @@ const appRoutes: Routes = [
     GuestsComponent,
     FormComponent,
     ReversePipe,
+    AuthComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(appRoutes),
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule,
+    FormsModule
   ],
   providers: [
     provideClientHydration(),
-    [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}]
+    // [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}]
   ],
   bootstrap: [AppComponent]
 })
