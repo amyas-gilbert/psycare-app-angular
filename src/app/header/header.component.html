@@ -1,6 +1,7 @@
 <nav>
   <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-  <a routerLink="festivals" routerLinkActive="active">Festivals</a>
+  <a routerLink="festivals" routerLinkActive="active" *ngIf="isAuthenticated">Festivals</a>
   <a routerLink="resources" routerLinkActive="active">Resources</a>
-  <a routerLink="auth" routerLinkActive="active">Log in / Sign up</a>
+  <a routerLink="auth" routerLinkActive="active" *ngIf="!isAuthenticated">Log in / Sign up</a>
+  <a routerLink="auth" routerLinkActive="active" *ngIf="isAuthenticated">Log out</a>
 </nav>

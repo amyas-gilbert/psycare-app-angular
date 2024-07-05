@@ -11,6 +11,6 @@ export class HomeComponent {
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   onNavigate() {
-    this.router.navigate(['festivals'])
+    this.router.navigate(['festivals']);
   }
 }

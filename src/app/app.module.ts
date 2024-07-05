@@ -7,15 +7,13 @@ import { FestivalsComponent } from './festivals/festivals.component';
 import { FestivalComponent } from './festivals/festival/festival.component';
 import { HeaderComponent } from './header/header.component';
 import { ResourcesComponent } from './resources/resources.component';
-import { FestivalsService } from './festivals/festivals.service';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { GuestsComponent } from './guests/guests.component';
 import { FormComponent } from './form/form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReversePipe } from './reverse.pipe';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-// import { AuthInterceptorService } from "./auth-interceptor.service";
+import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthComponent } from "./auth/auth.component";
 import { LoadingSpinnerComponent } from "./shared/loading-spinner/loading-spinner";
@@ -52,8 +50,7 @@ const appRoutes: Routes = [
     FormsModule
   ],
   providers: [
-    provideClientHydration(),
-    // [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}]
+    provideClientHydration()
   ],
   bootstrap: [AppComponent]
 })

@@ -3,6 +3,7 @@ import { NgForm } from "@angular/forms";
 import { AuthService } from "./auth.service";
 import { Observable } from "rxjs";
 import { AuthResponseData} from "./auth.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-auth',
@@ -10,8 +11,7 @@ import { AuthResponseData} from "./auth.service";
 })
 
 export class AuthComponent {
-  constructor(private authService: AuthService) {
-  }
+  constructor(private authService: AuthService, private router: Router) {}
 
   isLoginMode = true;
   isLoading = false;
@@ -41,6 +41,7 @@ export class AuthComponent {
     authObs.subscribe(resData => {
       console.log(resData);
       this.isLoading = false;
+      this.router.navigate(['/festivals']);
     }, errorMessage => {
       console.log(errorMessage);
       this.error = errorMessage;

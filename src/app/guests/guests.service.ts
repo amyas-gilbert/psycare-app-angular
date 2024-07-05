@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Guest } from "./guest.model";
-import { catchError, map, tap } from "rxjs/operators";
+import { catchError, exhaustMap, map, take, tap } from "rxjs/operators";
 import { HttpClient, HttpEventType, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Subject, throwError } from "rxjs";
+import { AuthService } from "../auth/auth.service";
 
 @Injectable()
 export class GuestsService {
@@ -10,7 +11,7 @@ export class GuestsService {
   error = new Subject<string>();
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
   }
 
   addGuest(guestData: Guest) {
@@ -23,7 +24,7 @@ export class GuestsService {
       {
         observe: 'response'
       }
-      )
+    )
       .subscribe(responseData => {
           console.log(responseData);
         }, error => {
@@ -33,38 +34,37 @@ export class GuestsService {
   }
 
   getGuests() {
+    // let searchParams = new HttpParams();
+    // searchParams = searchParams.append('print', 'pretty');
+    // searchParams = searchParams.append('custom', 'key');
 
-    // headers and params
-    let searchParams = new HttpParams();
-    searchParams = searchParams.append('print', 'pretty');
-    searchParams = searchParams.append('custom', 'key');
-
-    // this return allows us to access the response in components
-    return this.http.get<{
-      [key: string]: Guest
-    }>('https://psycare-ng-db-default-rtdb.europe-west1.firebasedatabase.app/guests.json',
-      {
-        headers: new HttpHeaders({'THIS-IS-MY-HEADER': 'THERE ARE MANY LIKE IT BUT THIS ONE IS MINE'}),
-        params: searchParams
-      }
-      )
-      // optional but recommended type casting for cleaner code, fewer errors, and better autocompletion
-      .pipe(
-        map((responseData) => {
-          const guestsArray: Guest[] = [];
-          for (const key in responseData) {
-            if (responseData.hasOwnProperty(key)) {
-              guestsArray.push({...responseData[key], id: key});
-            }
+    return this.authService.user.pipe(
+      take(1),
+      exhaustMap(user => {
+        return this.http.get<{
+          [key: string]: Guest
+        }>('https://psycare-ng-db-default-rtdb.europe-west1.firebasedatabase.app/guests.json',
+          {
+            headers: new HttpHeaders({'THIS-IS-MY-HEADER': 'THERE ARE MANY LIKE IT BUT THIS ONE IS MINE'}),
+            // params: searchParams
+            params: new HttpParams().set('auth', user.token)
           }
-          return guestsArray;
-        }),
-        catchError(errorResponse => {
-          // do generic error handling stuff like send to analytics, log it etc
-          return throwError(errorResponse);
-        })
-      );
-    // it returns an Observable, so in the components we'll need to subscribe to the method to do stuff with the response
+        )
+      }),
+      map((responseData) => {
+        const guestsArray: Guest[] = [];
+        for (const key in responseData) {
+          if (responseData.hasOwnProperty(key)) {
+            guestsArray.push({...responseData[key], id: key});
+          }
+        }
+        return guestsArray;
+      }),
+      catchError(errorResponse => {
+        // do generic error handling stuff like send to analytics, log it etc
+        return throwError(errorResponse);
+      })
+    )
   }
 
   deleteGuests() {
@@ -73,9 +73,9 @@ export class GuestsService {
         observe: 'events',
         responseType: 'text'
       }
-      ).pipe(tap(event => {
-        console.log(event);
-        // tap allows you to get at the response without altering the response
+    ).pipe(tap(event => {
+      console.log(event);
+      // tap allows you to get at the response without altering the response
       if (event.type === HttpEventType.Sent) {
         // whatever, tell the user it was sent or something
       }

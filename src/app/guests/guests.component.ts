@@ -8,13 +8,10 @@ import { GuestsService } from "./guests.service";
   styleUrl: './guests.component.scss'
 })
 export class GuestsComponent implements OnInit {
-  guests: Guest[];
-
   constructor(private guestsService: GuestsService) {
   }
 
   ngOnInit() {
-    // this.guests =
       this.guestsService.getGuests();
   }
 }
