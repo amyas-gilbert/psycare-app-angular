@@ -13,10 +13,11 @@ import { GuestsComponent } from './guests/guests.component';
 import { FormComponent } from './form/form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReversePipe } from './reverse.pipe';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthComponent } from "./auth/auth.component";
 import { LoadingSpinnerComponent } from "./shared/loading-spinner/loading-spinner";
+import { AuthInterceptorService } from "./auth/auth-interceptor.service";
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
@@ -50,7 +51,11 @@ const appRoutes: Routes = [
     FormsModule
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    {provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

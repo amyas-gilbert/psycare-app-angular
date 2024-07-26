@@ -38,33 +38,25 @@ export class GuestsService {
     // searchParams = searchParams.append('print', 'pretty');
     // searchParams = searchParams.append('custom', 'key');
 
-    return this.authService.user.pipe(
-      take(1),
-      exhaustMap(user => {
-        return this.http.get<{
-          [key: string]: Guest
-        }>('https://psycare-ng-db-default-rtdb.europe-west1.firebasedatabase.app/guests.json',
-          {
-            headers: new HttpHeaders({'THIS-IS-MY-HEADER': 'THERE ARE MANY LIKE IT BUT THIS ONE IS MINE'}),
-            // params: searchParams
-            params: new HttpParams().set('auth', user.token)
-          }
-        )
-      }),
-      map((responseData) => {
-        const guestsArray: Guest[] = [];
-        for (const key in responseData) {
-          if (responseData.hasOwnProperty(key)) {
-            guestsArray.push({...responseData[key], id: key});
-          }
-        }
-        return guestsArray;
-      }),
-      catchError(errorResponse => {
-        // do generic error handling stuff like send to analytics, log it etc
-        return throwError(errorResponse);
-      })
+    return this.http.get<{
+      [key: string]: Guest
+    }>('https://psycare-ng-db-default-rtdb.europe-west1.firebasedatabase.app/guests.json'
     )
+      .pipe(
+        map((responseData) => {
+          const guestsArray: Guest[] = [];
+          for (const key in responseData) {
+            if (responseData.hasOwnProperty(key)) {
+              guestsArray.push({...responseData[key], id: key});
+            }
+          }
+          return guestsArray;
+        }),
+        catchError(errorResponse => {
+          // do generic error handling stuff like send to analytics, log it etc
+          return throwError(errorResponse);
+        })
+      )
   }
 
   deleteGuests() {
