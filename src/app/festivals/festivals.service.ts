@@ -10,6 +10,7 @@ export class FestivalsService {
     {name: 'SGP', location: 'Huntingdon', website: 'https://www.secretgardenparty.com/'},
     {name: 'Wonkfest', location: 'Prangton', website: '#'},
     {name: 'Scrapness', location: 'Boshford', website: '#'},
+    {name: 'GitFest', location: 'Hubside', website: '#'},
   ]
 
   getFestivals() {
