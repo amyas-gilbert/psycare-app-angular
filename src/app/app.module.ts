@@ -18,10 +18,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthComponent } from "./auth/auth.component";
 import { LoadingSpinnerComponent } from "./shared/loading-spinner/loading-spinner";
 import { AuthInterceptorService } from "./auth/auth-interceptor.service";
+import { AuthGuard } from "./auth/auth.guard";
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
-  { path: 'festivals', component: FestivalsComponent},
+  {
+    path: 'festivals',
+    component: FestivalsComponent,
+    canActivate: [AuthGuard]},
   { path: 'festivals/:name', component: FestivalComponent},
   { path: 'resources', component: ResourcesComponent},
   { path: 'auth', component: AuthComponent }
