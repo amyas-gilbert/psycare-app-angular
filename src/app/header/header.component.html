@@ -3,5 +3,5 @@
   <a routerLink="festivals" routerLinkActive="active" *ngIf="isAuthenticated">Festivals</a>
   <a routerLink="resources" routerLinkActive="active">Resources</a>
   <a routerLink="auth" routerLinkActive="active" *ngIf="!isAuthenticated">Log in / Sign up</a>
-  <a *ngIf="isAuthenticated" (click)="onLogOut()">Log out</a>
+  <a routerLink="auth" *ngIf="isAuthenticated" (click)="onLogOut()">Log out</a>
 </nav>
