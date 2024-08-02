@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
+import { AlertComponent } from './shared/alert/alert.component';
 import { AppComponent } from './app.component';
 import { FestivalsComponent } from './festivals/festivals.component';
 import { FestivalComponent } from './festivals/festival/festival.component';
@@ -33,6 +34,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
+    AlertComponent,
     AppComponent,
     FestivalsComponent,
     FestivalComponent,

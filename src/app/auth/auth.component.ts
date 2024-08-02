@@ -51,6 +51,10 @@ export class AuthComponent {
 
     form.reset();
   }
+
+  onClose() {
+    this.error = null;
+  }
 }
 
 
