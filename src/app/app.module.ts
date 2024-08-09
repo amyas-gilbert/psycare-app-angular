@@ -4,13 +4,13 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { AppRoutingModule } from './app-routing.module';
 import { AlertComponent } from './shared/alert/alert.component';
 import { AppComponent } from './app.component';
-import { FestivalsComponent } from './festivals/festivals.component';
+// import { FestivalsComponent } from './festivals/festivals.component';
 import { FestivalComponent } from './festivals/festival/festival.component';
 import { HeaderComponent } from './header/header.component';
 import { ResourcesComponent } from './resources/resources.component';
-import { RouterModule, Routes } from '@angular/router';
+// import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { GuestsComponent } from './guests/guests.component';
+// import { GuestsComponent } from './guests/guests.component';
 import { FormComponent } from './form/form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReversePipe } from './reverse.pipe';
@@ -19,42 +19,39 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthComponent } from "./auth/auth.component";
 import { LoadingSpinnerComponent } from "./shared/loading-spinner/loading-spinner";
 import { AuthInterceptorService } from "./auth/auth-interceptor.service";
-import { AuthGuard } from "./auth/auth.guard";
+// import { AuthGuard } from "./auth/auth.guard";
+import { PlaceholderDirective } from "./shared/placeholder/placeholder.component";
+import { FestivalsModule } from "./festivals/festivals.module";
+import { AuthModule } from "./auth/auth.module";
 
-const appRoutes: Routes = [
-  { path: '', component: HomeComponent},
-  {
-    path: 'festivals',
-    component: FestivalsComponent,
-    canActivate: [AuthGuard]},
-  { path: 'festivals/:name', component: FestivalComponent},
-  { path: 'resources', component: ResourcesComponent},
-  { path: 'auth', component: AuthComponent }
-]
+
 
 @NgModule({
   declarations: [
-    AlertComponent,
+    // AlertComponent,
     AppComponent,
-    FestivalsComponent,
-    FestivalComponent,
+    // FestivalsComponent,
+    // FestivalComponent,
     HeaderComponent,
     ResourcesComponent,
     HomeComponent,
-    GuestsComponent,
+    // GuestsComponent,
     FormComponent,
     ReversePipe,
-    AuthComponent,
-    LoadingSpinnerComponent
+    // AuthComponent,
+    // LoadingSpinnerComponent,
+    // PlaceholderDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(appRoutes),
+    // RouterModule.forRoot(appRoutes),
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    FestivalsModule,
+    AuthModule
   ],
   providers: [
     provideClientHydration(),

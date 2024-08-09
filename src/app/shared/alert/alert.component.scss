@@ -4,8 +4,7 @@
   left: 0;
   height: 100vh;
   width: 100vw;
-  background-color: #161855;
-  opacity: 90%;
+  background-color: rgba(22, 24, 85,.9);
 }
 
 .message {
@@ -13,8 +12,9 @@
   top: 20vh;
   left: 20vw;
   width: 60vw;
-  background-color: #ecc13f;
   padding: 20px;
+  background-color: #ecc13f;
+  opacity: 100%;
 }
 
 button {

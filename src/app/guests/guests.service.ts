@@ -5,7 +5,7 @@ import { HttpClient, HttpEventType, HttpHeaders, HttpParams } from "@angular/com
 import { Subject, throwError } from "rxjs";
 import { AuthService } from "../auth/auth.service";
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class GuestsService {
   // using a subject for error handling - useful if multiple places in app that are interested in error
   error = new Subject<string>();
