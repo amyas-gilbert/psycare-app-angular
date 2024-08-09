@@ -3,13 +3,13 @@ import { FestivalsComponent } from "./festivals.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterLink } from "@angular/router";
 import { SharedModule } from "../shared/shared.module";
-import { FestivalComponent } from "./festival/festival.component";
+// import { FestivalComponent } from "./festival/festival.component";
 
 
 @NgModule({
   declarations: [
     FestivalsComponent,
-    FestivalComponent,
+    // FestivalComponent,
   ],
   imports: [
     SharedModule,
@@ -19,7 +19,7 @@ import { FestivalComponent } from "./festival/festival.component";
   ],
   exports: [
     FestivalsComponent,
-    FestivalComponent,
+    // FestivalComponent,
   ]
 })
 export class FestivalsModule {}

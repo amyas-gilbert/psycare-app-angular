@@ -9,7 +9,10 @@ import { AuthComponent } from "./auth/auth.component";
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
-  { path: 'festivals', loadChildren: () => import ('./festivals/festivals.module').then(m => m.FestivalsModule)}, // loadChildren means: only load this path when a user tries to go there
+  // { path: 'festivals', loadChildren: () => import ('./festivals/festivals.module').then(m => m.FestivalsModule)},
+      // loadChildren means: only load this path when a user tries to go there
+
+  { path: 'festivals', component: FestivalsComponent },
   { path: 'festivals/:name', component: FestivalComponent },
   { path: 'resources', component: ResourcesComponent},
   { path: 'auth', component: AuthComponent }

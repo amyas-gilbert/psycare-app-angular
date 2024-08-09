@@ -31,7 +31,7 @@ import { AuthModule } from "./auth/auth.module";
     // AlertComponent,
     AppComponent,
     // FestivalsComponent,
-    // FestivalComponent,
+    FestivalComponent,
     HeaderComponent,
     ResourcesComponent,
     HomeComponent,
