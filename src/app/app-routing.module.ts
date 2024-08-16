@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from "./home/home.component";
 import { ResourcesComponent } from "./resources/resources.component";
-import { AuthComponent } from "./auth/auth.component";
+// import { AuthComponent } from "./auth/auth.component";
 import { FestivalsService } from "./festivals/festivals.service";
 
 const appRoutes: Routes = [
@@ -25,14 +25,14 @@ const appRoutes: Routes = [
   // }, this nested route works with <router-outlet> in the tpl
 
   { path: 'resources', component: ResourcesComponent},
-  { path: 'auth', component: AuthComponent }
+  // { path: 'auth', component: AuthComponent }
+  { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) }
 ]
 
 @NgModule({
-  imports: [RouterModule.forRoot(appRoutes)],
+  imports: [RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules})],
   exports: [RouterModule],
-  providers: [FestivalsService]
+  // providers: [FestivalsService]
 })
 export class AppRoutingModule {
-
 }

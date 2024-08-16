@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { catchError, tap } from "rxjs/operators";
-import { throwError, BehaviorSubject } from "rxjs";
+import { throwError, BehaviorSubject, Subject } from "rxjs";
 import { User } from "./user.model";
 import { Router } from "@angular/router";
 
@@ -18,11 +18,15 @@ export interface AuthResponseData {
 @Injectable({providedIn: 'root'})
 export class AuthService {
   // user = new Subject<User>(); // this subject we can subscribe to and get new information whenever data is emitted
-  user = new BehaviorSubject<User>(null); // behaves much like Subject, but also gives subscribers access to previous value even if they weren't subscribed when that value was emitted
-      // means we can get access to the current user even if we subscribe to this after the user has logged in
+  user = new BehaviorSubject<User>(null);
+  // behaves much like Subject, but also gives subscribers access to previous value even if they weren't subscribed when that value was emitted
+  // means we can get access to the current user even if we subscribe to this after the user has logged in
   tokenExpirationTimer: any;
 
   constructor(private http: HttpClient, private router: Router) {
+    this.user.subscribe(user => {
+      console.log('user obs:', user)
+    })
   }
 
   signup(email: string, password: string) {
@@ -88,7 +92,7 @@ export class AuthService {
 
   logout() {
     this.user.next(null);
-    this.router.navigate(['/auth']);
+    this.router.navigate(['auth']);
     // localStorage.clear();
     localStorage.removeItem('userData');
     if (this.tokenExpirationTimer) {

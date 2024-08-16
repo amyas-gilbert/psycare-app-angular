@@ -5,12 +5,12 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { HomeComponent } from './home/home.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReversePipe } from './reverse.pipe';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthInterceptorService } from "./auth/auth-interceptor.service";
 import { AuthModule } from "./auth/auth.module";
+import { SharedModule } from "./shared/shared.module";
 
 
 
@@ -25,18 +25,17 @@ import { AuthModule } from "./auth/auth.module";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
-    FormsModule,
-    AuthModule
+    AuthModule,
+    SharedModule,
   ],
   providers: [
     provideClientHydration(),
     {provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
       multi: true
-    }
+    },
   ],
   bootstrap: [AppComponent]
 })

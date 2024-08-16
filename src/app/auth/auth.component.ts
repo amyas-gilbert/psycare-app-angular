@@ -41,14 +41,16 @@ export class AuthComponent implements OnDestroy {
 
     if (this.isLoginMode) {
       authObs = this.authService.login(email, password)
+      console.log('user:', !!this.authService.user)
     } else {
       authObs = this.authService.signup(email, password)
     }
 
-    authObs.subscribe(resData => {
+    authObs.subscribe(
+      resData => {
       console.log(resData);
       this.isLoading = false;
-      this.router.navigate(['/festivals']);
+      this.router.navigate(['festivals']);
     }, errorMessage => {
       console.log(errorMessage);
       // this.error = errorMessage;

@@ -1,20 +1,26 @@
 import { NgModule } from "@angular/core";
 import { SharedModule } from "../shared/shared.module";
 import { AuthComponent } from "./auth.component";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { CommonModule } from "@angular/common";
+import { RouterLink, RouterOutlet } from "@angular/router";
+import { AuthRoutingModule } from "./auth-routing.module";
 
 @NgModule({
   declarations: [
     AuthComponent,
   ],
   imports: [
+    CommonModule,
+    FormsModule,
     SharedModule,
-    FormsModule
+    ReactiveFormsModule,
+    RouterLink,
+    RouterOutlet,
+    AuthRoutingModule
   ],
   exports: [
-    AuthComponent,
-    SharedModule,
-    FormsModule
+    AuthComponent
   ]
 })
 export class AuthModule {}
