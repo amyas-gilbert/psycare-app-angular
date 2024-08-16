@@ -8,7 +8,7 @@ const routes: Routes = [
   {
     path: '',
     component: FestivalsComponent,
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   { path: ':name', component: FestivalComponent },
 

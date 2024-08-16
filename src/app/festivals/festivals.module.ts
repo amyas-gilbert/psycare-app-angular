@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { FestivalsComponent } from "./festivals.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { RouterLink, RouterModule, RouterOutlet } from "@angular/router";
+import { RouterLink, RouterOutlet } from "@angular/router";
 import { SharedModule } from "../shared/shared.module";
 import { CommonModule } from "@angular/common";
 import { FestivalComponent } from "./festival/festival.component";

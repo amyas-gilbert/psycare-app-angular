@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from "./home/home.component";
-import { FestivalsComponent } from "./festivals/festivals.component";
-import { AuthGuard } from "./auth/auth.guard";
-import { FestivalComponent } from "./festivals/festival/festival.component";
 import { ResourcesComponent } from "./resources/resources.component";
 import { AuthComponent } from "./auth/auth.component";
 import { FestivalsService } from "./festivals/festivals.service";
