@@ -1,25 +1,31 @@
 import { NgModule } from "@angular/core";
 import { FestivalsComponent } from "./festivals.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { RouterLink } from "@angular/router";
+import { RouterLink, RouterOutlet } from "@angular/router";
 import { SharedModule } from "../shared/shared.module";
-// import { FestivalComponent } from "./festival/festival.component";
+import { CommonModule } from "@angular/common";
+import { FestivalComponent } from "./festival/festival.component";
+import { FormComponent } from "../form/form.component";
 
 
 @NgModule({
   declarations: [
     FestivalsComponent,
-    // FestivalComponent,
+    FestivalComponent,
+    FormComponent
   ],
   imports: [
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,
+    RouterOutlet,
+    CommonModule
   ],
   exports: [
     FestivalsComponent,
-    // FestivalComponent,
+    FestivalComponent,
+    FormComponent
   ]
 })
 export class FestivalsModule {}
