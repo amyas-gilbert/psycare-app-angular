@@ -21,7 +21,7 @@ import { LoadingSpinnerComponent } from "./shared/loading-spinner/loading-spinne
 import { AuthInterceptorService } from "./auth/auth-interceptor.service";
 // import { AuthGuard } from "./auth/auth.guard";
 import { PlaceholderDirective } from "./shared/placeholder/placeholder.component";
-import { FestivalsModule } from "./festivals/festivals.module";
+// import { FestivalsModule } from "./festivals/festivals.module";
 import { AuthModule } from "./auth/auth.module";
 
 
@@ -50,7 +50,7 @@ import { AuthModule } from "./auth/auth.module";
     HttpClientModule,
     NgbModule,
     FormsModule,
-    FestivalsModule,
+    // FestivalsModule,
     AuthModule
   ],
   providers: [

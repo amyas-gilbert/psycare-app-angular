@@ -1,14 +1,17 @@
 import { RouterModule, Routes } from "@angular/router";
 import { NgModule } from "@angular/core";
 import { FestivalsComponent } from "./festivals.component";
+import { FestivalComponent } from "./festival/festival.component";
 import { AuthGuard } from "../auth/auth.guard";
 
 const routes: Routes = [
-  // {
-  //   path: 'festivals',
-  //   component: FestivalsComponent,
-  //   canActivate: [AuthGuard]
-  // },
+  {
+    path: '',
+    component: FestivalsComponent,
+    // canActivate: [AuthGuard]
+  },
+  { path: ':name', component: FestivalComponent },
+
 ]
 
 @NgModule({

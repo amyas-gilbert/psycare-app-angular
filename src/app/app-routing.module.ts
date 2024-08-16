@@ -11,10 +11,10 @@ import { FestivalsService } from "./festivals/festivals.service";
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
 
-  { path: 'festivals', component: FestivalsComponent },
-  { path: 'festivals/:name', component: FestivalComponent },
+  // { path: 'festivals', component: FestivalsComponent },
+  // { path: 'festivals/:name', component: FestivalComponent },
 
-  // { path: 'festivals', loadChildren: () => import ('./festivals/festivals.module').then(m => m.FestivalsModule)},
+  { path: 'festivals', loadChildren: () => import ('./festivals/festivals.module').then(m => m.FestivalsModule)},
   // loadChildren means: only load this path when a user tries to go there
 
   // {
