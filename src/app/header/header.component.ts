@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import { AuthService } from "../auth/auth.service";
 import { Subscription } from "rxjs";
 
@@ -9,15 +9,20 @@ import { Subscription } from "rxjs";
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   isAuthenticated = false;
+  authChecked = false;
   private userSub: Subscription;
+  private authCheckSub: Subscription;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private cdRef: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.userSub = this.authService.user.subscribe(user => {
       this.isAuthenticated = !!user;
     });
-    console.log('isAuthenticated:', this.isAuthenticated)
+
+    this.authCheckSub = this.authService.authChecked.subscribe(checked => {
+      this.authChecked = checked;
+    })
   }
 
   ngOnDestroy() {
@@ -26,6 +31,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onLogOut() {
     this.authService.logout();
-    console.log('isAuthenticated:', this.isAuthenticated)
   }
 }

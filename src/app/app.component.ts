@@ -10,6 +10,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
+    console.log('AppComponent initialized');
     this.authService.autoLogin();
   }
 

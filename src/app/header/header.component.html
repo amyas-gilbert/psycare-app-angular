@@ -1,7 +1,7 @@
-<nav>
+<nav *ngIf="authChecked">
   <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-  <a routerLink="festivals" routerLinkActive="active" *ngIf="isAuthenticated">Festivals</a>
+  <a routerLink="festivals" routerLinkActive="active" *ngIf="isAuthenticated === true">Festivals</a>
   <a routerLink="resources" routerLinkActive="active">Resources</a>
-  <a routerLink="auth" routerLinkActive="active" *ngIf="!isAuthenticated">Log in / Sign up</a>
-  <a routerLink="auth" *ngIf="isAuthenticated" (click)="onLogOut()">Log out</a>
+  <a routerLink="auth" routerLinkActive="active" *ngIf="!isAuthenticated === true">Log in / Sign up</a>
+  <a routerLink="auth" *ngIf="isAuthenticated === true" (click)="onLogOut()">Log out</a>
 </nav>
