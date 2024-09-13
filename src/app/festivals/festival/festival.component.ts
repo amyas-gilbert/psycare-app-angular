@@ -18,13 +18,41 @@ export class FestivalComponent implements OnInit, OnDestroy {
 
     guestForms: FormGroup[] = [];
 
-    error = null;
-    private errorSubscription: Subscription;
+    // error = null;
+    // private errorSubscription: Subscription;
 
     constructor(private route: ActivatedRoute, private guestsService: GuestsService, private fb: FormBuilder) {
     }
 
     ngOnInit() {
+        this.guestsService.getGuests()
+            .subscribe(guests => {
+                    this.guests = guests;
+                    console.log(this.guests);
+
+                    this.guests.forEach(guest => {
+                        const guestForm = new FormGroup({
+                            'name': new FormControl(),
+                            'arrivalTime': new FormControl(),
+                            'description': new FormControl(),
+                            'arrivalNotes': new FormControl()
+                        });
+
+                        guestForm.setValue({
+                            'name': guest.name,
+                            'arrivalTime': guest.arrivalTime,
+                            'description': guest.description,
+                            'arrivalNotes': guest.arrivalNotes
+                        })
+
+                        this.guestForms.push(guestForm)
+                    });
+
+                }, error => {
+                    // this.error = error;
+                    console.log(error);
+                }
+            );
 
         this.festival = {
             name: this.route.snapshot.params['name'],
@@ -32,41 +60,23 @@ export class FestivalComponent implements OnInit, OnDestroy {
             website: this.route.snapshot.params['website']
         }
 
-        this.guests.forEach(guest => {
-            const guestForm = new FormGroup({
-                'name': new FormControl(guest.name),
-                'arrivalTime': new FormControl(guest.arrivalTime),
-                'description': new FormControl(guest.description),
-                'arrivalNotes': new FormControl(guest.arrivalNotes)
-            });
-            this.guestForms.push(guestForm)
-        });
-
         // subject error handling
-        this.errorSubscription = this.guestsService.error.subscribe(errorMessage => {
-            this.error = errorMessage;
-        })
+        // this.errorSubscription = this.guestsService.error.subscribe(errorMessage => {
+        //     this.error = errorMessage;
+        // })
 
-        this.guestsService.getGuests()
-            .subscribe(guests => {
-                    this.guests = guests;
-                    console.log(guests);
-                }, error => {
-                    this.error = error;
-                    console.log(error);
-                }
-            );
     }
 
     onCheckIn(index: number) {
         this.guestsService.addGuest(this.guestForms[index].value);
+        console.log(this.guests);
     }
 
-    onHandleError() {
-        this.error = null;
-    }
+    // onHandleError() {
+    //     this.error = null;
+    // }
 
     ngOnDestroy() {
-        this.errorSubscription.unsubscribe();
+        // this.errorSubscription.unsubscribe();
     }
 }
