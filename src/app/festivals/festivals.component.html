@@ -1,12 +1,16 @@
+<div class="festivals m-5 row">
+
 <h2>Festivals</h2>
 <!--<router-outlet></router-outlet>-->
 
 <ul>
   <li *ngFor="let festival of festivals">{{festival.name | uppercase}} in {{festival.location}}
     <a [href]="festival.website">Website</a>
-    <br>
     <!-- link to festival component with query params linking it to that festival -->
+    <br>
     <a [routerLink]="festival.name">Go to {{festival.name}}'s page</a>
   </li>
+
 </ul>
 
+</div>

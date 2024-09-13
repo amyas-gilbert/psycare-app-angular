@@ -35,9 +35,10 @@
     <ul>
       <li *ngFor="let guest of guests">
         <p>Name: {{ guest.name }}</p>
-        <p>Checkin time: {{ guest.checkInTime }}</p>
+        <p>Checkin time: {{ guest.arrivalTime }}</p>
+        <p>Checkin day: {{ guest.arrivalDay }}</p>
         <p>Description: {{ guest.description }}</p>
-        <p>Notes: {{ guest.notes }}</p>
+        <p>Notes: {{ guest.arrivalNotes }}</p>
       </li>
     </ul>
   </div>

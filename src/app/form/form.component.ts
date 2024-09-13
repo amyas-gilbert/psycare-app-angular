@@ -20,9 +20,9 @@ export class FormComponent implements OnInit {
   ngOnInit() {
     this.guestForm = new FormGroup({
       'name': new FormControl(null),
-      'time': new FormControl(null),
+      'arrivalTime': new FormControl(null),
       'description': new FormControl(null),
-      'notes': new FormControl(null)
+      'arrivalNotes': new FormControl(null)
     });
 
     this.guestService.getGuests();
