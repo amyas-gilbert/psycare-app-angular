@@ -1,47 +1,37 @@
+<div class="m-3">
 
-<body>
+    <div class="title border-bottom">
+        <h1>{{ festival.name }}</h1>
+    </div>
 
-<h1>{{ festival.name }}</h1>
+    <!--    <app-form></app-form>-->
+    <!-- not a separate form but in a dropdown when you click the row displaying guest name and checkin time -->
 
-<div class="festivalLinks">
-  <a>Info</a>
-  <a>Other Stuff</a>
-  <a>Guest Form</a>
+    <form
+            [formGroup]="guestForms[i]"
+            (ngSubmit)="onCheckIn(i)"
+            *ngFor="let guest of guests; let i = index"
+    >
+        <div class="form-field">
+            <label for="name">guest name:</label>
+            <input type="text" name="name" id="name" formControlName="name">
+        </div>
+        <div class="form-field">
+            <label for="check-in-time">check-in time:</label>
+            <input type="text" name="check-in-time" id="check-in-time" formControlName="arrivalTime">
+        </div>
+        <div class="form-field">
+            <label for="description">description:</label>
+            <input type="text" name="description" id="description" formControlName="description">
+        </div>
+        <div class="form-field">
+            <label for="notes">notes:</label>
+            <input type="text" name="notes" id="notes" formControlName="arrivalNotes">
+        </div>
+        <div class="buttonContainer">
+            <button type="submit">Check 'em in!</button>
+        </div>
+    </form>
+
+
 </div>
-
-<app-form></app-form>
-<!-- not a separate form but in a dropdown when you click the row displaying guest name and checkin time -->
-
-<div class="guestsButtons">
-  <a (click)="logGuests()">Log Guests</a>
-  <a (click)="showGuests()" *ngIf="!guestsShown">Show Guests</a>
-  <a (click)="hideGuests()" *ngIf="guestsShown">Hide Guests</a>
-  <a (click)="clearGuests()">Clear Guests</a>
-</div>
-
-<div class="guestsDisplay">
-  <p *ngIf="isFetching && !error">Loading guests...</p>
-  <div *ngIf="error">
-    <h2>We got a bug!</h2>
-    <p>{{ error.status + ' - ' + error.error['error'] }}</p>
-    <button (click)="onHandleError()">Whatever</button>
-  </div>
-  <div *ngIf="!isFetching">
-    <p *ngIf="guestsEmpty">There are no guests checked in</p>
-    <p *ngIf="!guestsEmpty">There is at least one guest checked in</p>
-  </div>
-
-  <div *ngIf="guestsShown">
-    <ul>
-      <li *ngFor="let guest of guests">
-        <p>Name: {{ guest.name }}</p>
-        <p>Checkin time: {{ guest.arrivalTime }}</p>
-        <p>Checkin day: {{ guest.arrivalDay }}</p>
-        <p>Description: {{ guest.description }}</p>
-        <p>Notes: {{ guest.arrivalNotes }}</p>
-      </li>
-    </ul>
-  </div>
-</div>
-
-</body>

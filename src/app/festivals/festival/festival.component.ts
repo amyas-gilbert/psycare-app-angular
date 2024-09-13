@@ -1,109 +1,72 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { GuestsService } from '../../guests/guests.service';
-import { Guest } from '../../guests/guest.model';
-import { Subscription } from "rxjs";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {GuestsService} from '../../guests/guests.service';
+import {Guest} from '../../guests/guest.model';
+import {Subscription} from "rxjs";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 
 @Component({
-  selector: 'app-festival',
-  templateUrl: './festival.component.html',
-  styleUrl: './festival.component.scss',
-  providers: [GuestsService]
+    selector: 'app-festival',
+    templateUrl: './festival.component.html',
+    styleUrl: './festival.component.scss',
+    providers: [GuestsService]
 })
 
 export class FestivalComponent implements OnInit, OnDestroy {
-  festival: { name: string, location: string, website: string };
-  guestsShown = false;
-  guestsEmpty: boolean;
-  guests: Guest[];
-  isFetching = false;
-  error = null;
-  private errorSubscription: Subscription;
+    festival: { name: string, location: string, website: string };
+    guests: Guest[];
 
-  constructor(private route: ActivatedRoute, private guestsService: GuestsService) {
-  }
+    guestForms: FormGroup[] = [];
 
-  ngOnInit() {
-    this.festival = {
-      name: this.route.snapshot.params['name'],
-      location: this.route.snapshot.params['location'],
-      website: this.route.snapshot.params['website']
+    error = null;
+    private errorSubscription: Subscription;
+
+    constructor(private route: ActivatedRoute, private guestsService: GuestsService, private fb: FormBuilder) {
     }
 
-    // subject error handling
-    this.errorSubscription = this.guestsService.error.subscribe(errorMessage => {
-      this.error = errorMessage;
-    })
+    ngOnInit() {
 
-    this.isFetching = true;
-
-    this.guestsService.getGuests()
-      .subscribe(guests => {
-        this.isFetching = false;
-        this.guests = guests;
-        this.areThereAnyGuests();
-      }, error => {
-        this.isFetching = false;
-        this.error = error;
-        console.log(error);
-      }
-    );
-  }
-
-  areThereAnyGuests() {
-    this.guestsService.getGuests()
-      .subscribe(guests => {
-        this.guests = guests;
-          if (this.guests.length === 0) {
-            this.isFetching = false;
-            this.guestsEmpty = true;
-            this.guestsShown = false;
-          } else {
-            this.guestsEmpty = false;
-          }
-      });
-  }
-
-  logGuests() {
-    this.guestsService.getGuests()
-      .subscribe(guests => {
-        console.log(guests);
-      });
-  }
-
-  clearGuests() {
-    this.guestsService.deleteGuests()
-      .subscribe(() => {
-        this.guests = [];
-        this.areThereAnyGuests();
-      });
-  }
-
-  showGuests() {
-    this.guestsService.getGuests()
-      .subscribe(guests => {
-        this.isFetching = false;
-        this.guests = guests;
-        if (this.guests.length > 0) {
-          this.guestsShown = true;
+        this.festival = {
+            name: this.route.snapshot.params['name'],
+            location: this.route.snapshot.params['location'],
+            website: this.route.snapshot.params['website']
         }
-        this.areThereAnyGuests();
-      }, error => {
-        this.isFetching = false;
-        this.error = error.message;
-      });
-  }
 
-  hideGuests() {
-    this.guestsShown = false;
-  }
+        this.guests.forEach(guest => {
+            const guestForm = new FormGroup({
+                'name': new FormControl(guest.name),
+                'arrivalTime': new FormControl(guest.arrivalTime),
+                'description': new FormControl(guest.description),
+                'arrivalNotes': new FormControl(guest.arrivalNotes)
+            });
+            this.guestForms.push(guestForm)
+        });
 
-  onHandleError() {
-    this.isFetching = false;
-    this.error = null;
-  }
+        // subject error handling
+        this.errorSubscription = this.guestsService.error.subscribe(errorMessage => {
+            this.error = errorMessage;
+        })
 
-  ngOnDestroy() {
-    this.errorSubscription.unsubscribe();
-  }
+        this.guestsService.getGuests()
+            .subscribe(guests => {
+                    this.guests = guests;
+                    console.log(guests);
+                }, error => {
+                    this.error = error;
+                    console.log(error);
+                }
+            );
+    }
+
+    onCheckIn(index: number) {
+        this.guestsService.addGuest(this.guestForms[index].value);
+    }
+
+    onHandleError() {
+        this.error = null;
+    }
+
+    ngOnDestroy() {
+        this.errorSubscription.unsubscribe();
+    }
 }
